@@ -2,6 +2,9 @@ package com.emsib.emsib_backend_business.logic;
 
 import java.util.ArrayList;
 
+import com.emsib.emsib_backend_business.logic.entity.Building;
+import com.emsib.emsib_backend_business.logic.entity.User;
+
 public interface IBusinessLogic {
     public String getReport(String s);
     public String getSummary(String s);

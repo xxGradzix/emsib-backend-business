@@ -1,4 +1,4 @@
-package com.emsib.emsib_backend_business.logic;
+package com.emsib.emsib_backend_business.logic.entity;
 
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
