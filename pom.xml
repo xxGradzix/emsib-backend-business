@@ -11,7 +11,8 @@
 	<groupId>com.emsib</groupId>
 	<artifactId>emsib-backend-business</artifactId>
 	<version>0.0.1-SNAPSHOT</version>
-	<name>emsib-backend-business</name>
+    <packaging>pom</packaging>
+    <name>emsib-backend-business</name>
 	<description>Demo project for Spring Boot</description>
 	<url/>
 	<licenses>
@@ -20,7 +21,10 @@
 	<developers>
 		<developer/>
 	</developers>
-	<scm>
+    <modules>
+        <module>SecurityModule</module>
+    </modules>
+    <scm>
 		<connection/>
 		<developerConnection/>
 		<tag/>
@@ -97,5 +101,7 @@
 			</plugin>
 		</plugins>
 	</build>
+
+
 
 </project>
