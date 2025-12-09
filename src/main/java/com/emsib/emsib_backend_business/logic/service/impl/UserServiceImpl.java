@@ -10,6 +10,8 @@ import com.emsib.emsib_backend_business.logic.service.UserService;
 
 import lombok.AllArgsConstructor;
 
+import java.util.Optional;
+
 @Service
 @AllArgsConstructor
 public class UserServiceImpl implements UserService {
@@ -24,4 +26,8 @@ public class UserServiceImpl implements UserService {
         return UserMapper.mapToUserDto(savedUser);
     }
 
+    @Override
+    public Optional<User> findById(Long id) {
+        return userRepository.findById(id);
+    }
 }
