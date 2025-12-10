@@ -24,8 +24,8 @@ public class UserMapper {
             userDto.getEmail(),
             userDto.getPhone(),
             userDto.getNip(),
-            null,
-            null
+            "testpass",
+            "testsalt"
         );
     }
 }
