@@ -1,25 +1,26 @@
 package com.emsib.emsib_backend_business;
 
-import com.emsib.relational_database.BuildingEnt;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 import org.hibernate.Transaction;
 import org.hibernate.cfg.Configuration;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
+import org.springframework.boot.autoconfigure.domain.EntityScan;
 
 import java.util.List;
 
 @SpringBootApplication
+@EntityScan("com.emsib.relational_database")
 public class EmsibBackendBusinessApplication {
 
 	public static void main(String[] args) {
         //TESTING ONLY - DO USE DAOs with try-with-resource
         // eg. tutorial: https://www.javaguides.net/2018/12/hibernate-transaction-management-tutorial.html
 
-        SessionFactory factory = new Configuration().configure("hibernate.cfg.xml").buildSessionFactory();
-        Session session = factory.openSession();
-        Transaction tx = session.beginTransaction();
+     //   SessionFactory factory = new Configuration().configure("hibernate.cfg.xml").buildSessionFactory();
+      //  Session session = factory.openSession();
+     //   Transaction tx = session.beginTransaction();
 
         //inserting
 //        UserEnt user = new UserEnt();
@@ -127,12 +128,12 @@ public class EmsibBackendBusinessApplication {
 //        }
 
         //joins 3
-        String hql = "SELECT ub, ubr, u, b FROM UserBuildingEnt ub JOIN ub.role ubr JOIN ub.user u JOIN ub.building b";
+       // String hql = "SELECT ub, ubr, u, b FROM UserBuildingEnt ub JOIN ub.role ubr JOIN ub.user u JOIN ub.building b";
 
-        List<Object[]> lst = session.createQuery(hql, Object[].class).list();
-        for (Object[] el : lst) {
-            System.out.println(el[0] + " " + el[1] + " " + el[2] + " " + el[3]);
-        }
+       // List<Object[]> lst = session.createQuery(hql, Object[].class).list();
+       // for (Object[] el : lst) {
+       //     System.out.println(el[0] + " " + el[1] + " " + el[2] + " " + el[3]);
+       // }
 
         //joins 4
 //        String hql = "SELECT pd, p, d FROM PropertyDeviceEnt pd JOIN pd.property p JOIN pd.device d";
@@ -158,9 +159,9 @@ public class EmsibBackendBusinessApplication {
 //            System.out.println(el[0] + " " + el[1]);
 //        }
 
-        tx.commit();
-        session.close();
-        factory.close();
+       // tx.commit();
+       // session.close();
+       // factory.close();
 
         //TESTING ONLY
 

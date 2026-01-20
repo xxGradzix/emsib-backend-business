@@ -34,3 +34,4 @@ build/
 
 ## db config file
 hibernate.cfg.xml
+/SecurityModule/

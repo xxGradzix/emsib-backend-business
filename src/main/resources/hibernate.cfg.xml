@@ -12,17 +12,17 @@
         <property name="hibernate.connection.password"></property>
 
         <!-- automatic entity detection -->
-        <mapping class="com.emsib.relational_database.UserEnt"/>
-        <mapping class="com.emsib.relational_database.BuildingEnt"/>
-        <mapping class="com.emsib.relational_database.UbRoleEnt"/>
-        <mapping class="com.emsib.relational_database.UserBuildingEnt"/>
-        <mapping class="com.emsib.relational_database.DeviceStatusEnt"/>
-        <mapping class="com.emsib.relational_database.DeviceEnt"/>
-        <mapping class="com.emsib.relational_database.PropertyTypeEnt"/>
-        <mapping class="com.emsib.relational_database.PropertyEnt"/>
-        <mapping class="com.emsib.relational_database.UserPropertyEnt"/>
-        <mapping class="com.emsib.relational_database.PropertyDeviceEnt"/>
-        <mapping class="com.emsib.relational_database.BuildingDeviceEnt"/>
+        <mapping class="com.emsib.emsib_backend_business.relational_database.UserEnt"/>
+        <mapping class="com.emsib.emsib_backend_business.relational_database.BuildingEnt"/>
+        <mapping class="com.emsib.emsib_backend_business.relational_database.UbRoleEnt"/>
+        <mapping class="com.emsib.emsib_backend_business.relational_database.UserBuildingEnt"/>
+        <mapping class="com.emsib.emsib_backend_business.relational_database.DeviceStatusEnt"/>
+        <mapping class="com.emsib.emsib_backend_business.relational_database.DeviceEnt"/>
+        <mapping class="com.emsib.emsib_backend_business.relational_database.PropertyTypeEnt"/>
+        <mapping class="com.emsib.emsib_backend_business.relational_database.PropertyEnt"/>
+        <mapping class="com.emsib.emsib_backend_business.relational_database.UserPropertyEnt"/>
+        <mapping class="com.emsib.emsib_backend_business.relational_database.PropertyDeviceEnt"/>
+        <mapping class="com.emsib.emsib_backend_business.relational_database.BuildingDeviceEnt"/>
 
 
     </session-factory>

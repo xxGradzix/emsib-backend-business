@@ -3,60 +3,65 @@ package com.emsib.emsib_backend_business.security.securitymodule.auth;
 import com.emsib.emsib_backend_business.security.securitymodule.auth.dto.AuthResponse;
 import com.emsib.emsib_backend_business.security.securitymodule.auth.dto.LoginRequest;
 import com.emsib.emsib_backend_business.security.securitymodule.auth.dto.RegisterRequest;
+import com.emsib.emsib_backend_business.relational_database.UserEnt;
+import com.emsib.emsib_backend_business.relational_database.UserEntRepository;
 import com.emsib.emsib_backend_business.security.securitymodule.jwt.JwtProvider;
-import com.emsib.emsib_backend_business.security.securitymodule.user.Role;
-import com.emsib.emsib_backend_business.security.securitymodule.user.User;
-import com.emsib.emsib_backend_business.security.securitymodule.user.UserRepository;
-import org.springframework.security.crypto.password.PasswordEncoder;
+import com.emsib.emsib_backend_business.security.securitymodule.util.PasswordHashUtil;
 import org.springframework.stereotype.Service;
-
-import java.util.Set;
+import org.springframework.transaction.annotation.Transactional;
 
 @Service
 public class AuthenticationServiceImpl implements AuthenticationService {
 
-    private final UserRepository userRepository;
-    private final PasswordEncoder passwordEncoder;
+    private final UserEntRepository userEntRepository;
     private final JwtProvider jwtProvider;
 
-    public AuthenticationServiceImpl(UserRepository userRepository,
-                                     PasswordEncoder passwordEncoder,
+    public AuthenticationServiceImpl(UserEntRepository userEntRepository,
                                      JwtProvider jwtProvider) {
-        this.userRepository = userRepository;
-        this.passwordEncoder = passwordEncoder;
+        this.userEntRepository = userEntRepository;
         this.jwtProvider = jwtProvider;
     }
 
+
     @Override
+    @Transactional
     public AuthResponse register(RegisterRequest request) {
-        if (userRepository.existsByUsername(request.getUsername())) {
-            throw new IllegalArgumentException("Username already in use");
-        }
-        if (userRepository.existsByEmail(request.getEmail())) {
+        // Check unique email
+        if (userEntRepository.existsByEmail(request.getEmail())) {
             throw new IllegalArgumentException("Email already in use");
         }
 
-        User user = new User();
-        user.setUsername(request.getUsername());
-        user.setEmail(request.getEmail());
-        user.setPassword(passwordEncoder.encode(request.getPassword()));
-        user.setRoles(Set.of(Role.ROLE_USER));
-        userRepository.save(user);
+        // Create salt + hash
+        byte[] salt = PasswordHashUtil.generateSalt(16);
+        byte[] hash = PasswordHashUtil.hashPassword(request.getPassword().toCharArray(), salt);
 
-        String token = jwtProvider.generateToken(user.getUsername());
+        UserEnt user = new UserEnt();
+        user.name = request.getUsername();
+        user.surname = null;
+        user.email = request.getEmail();
+        user.phone = "";
+        user.nip = null;
+        user.passwordHash = hash;
+        user.salt = salt;
+
+        userEntRepository.save(user);
+
+        String token = jwtProvider.generateToken(user.email);
         return new AuthResponse(token);
     }
 
+
     @Override
     public AuthResponse authenticate(LoginRequest request) {
-        User user = userRepository.findByUsername(request.getUsername())
+        UserEnt user = userEntRepository.findByEmail(request.getUsername())
                 .orElseThrow(() -> new IllegalArgumentException("Invalid credentials"));
 
-        if (!passwordEncoder.matches(request.getPassword(), user.getPassword())) {
+        boolean ok = PasswordHashUtil.verifyPassword(request.getPassword(), user.salt, user.passwordHash);
+        if (!ok) {
             throw new IllegalArgumentException("Invalid credentials");
         }
 
-        String token = jwtProvider.generateToken(user.getUsername());
+        String token = jwtProvider.generateToken(user.email);
         return new AuthResponse(token);
     }
 }
