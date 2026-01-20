@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE hibernate-configuration PUBLIC
+        "-//Hibernate/Hibernate Configuration DTD 3.0//EN"
+        "http://www.hibernate.org/dtd/hibernate-configuration-3.0.dtd">
+<hibernate-configuration>
+    <session-factory>
+        <!-- SSL ok, For now no snooping and man-in-the-middle attacks prevention -->
+        <!-- JDBC -->
+        <property name="hibernate.connection.driver_class">org.postgresql.Driver</property>
+        <property name="hibernate.connection.url">jdbc:postgresql://aws-1-eu-central-1.pooler.supabase.com:5432/postgres?ssl=true&amp;sslmode=require</property>
+        <property name="hibernate.connection.username">postgres.kmtexvonyhfwwkurygbt</property>
+        <property name="hibernate.connection.password"></property>
+
+        <!-- automatic entity detection -->
+        <mapping class="com.emsib.relational_database.UserEnt"/>
+        <mapping class="com.emsib.relational_database.BuildingEnt"/>
+        <mapping class="com.emsib.relational_database.UbRoleEnt"/>
+        <mapping class="com.emsib.relational_database.UserBuildingEnt"/>
+        <mapping class="com.emsib.relational_database.DeviceStatusEnt"/>
+        <mapping class="com.emsib.relational_database.DeviceEnt"/>
+        <mapping class="com.emsib.relational_database.PropertyTypeEnt"/>
+        <mapping class="com.emsib.relational_database.PropertyEnt"/>
+        <mapping class="com.emsib.relational_database.UserPropertyEnt"/>
+        <mapping class="com.emsib.relational_database.PropertyDeviceEnt"/>
+        <mapping class="com.emsib.relational_database.BuildingDeviceEnt"/>
+
+
+    </session-factory>
+</hibernate-configuration>
