@@ -1,25 +1,25 @@
 package com.emsib.emsib_backend_business.logic.mapper;
 
 import com.emsib.emsib_backend_business.logic.dto.BuildingDto;
-import com.emsib.emsib_backend_business.logic.entity.Building;
+import com.emsib.emsib_backend_business.logic.entity.BuildingEnt;
 
 public class BuildingMapper {
 
-    public static BuildingDto mapToBuildingDto(Building building) {
+    public static BuildingDto mapToBuildingDto(BuildingEnt building) {
         return new BuildingDto(
-                building.getId(),
+                building.getBuildingId(),
                 building.getName(),
                 building.getStreet(),
-                building.getNumber(),
-                building.getCode(),
+                building.getStreetNum(),
+                building.getPostalCode(),
                 building.getCity(),
-                building.getFloors(),
+                building.getNumOfFloors(),
                 building.getDescription()
         );
     }
 
-    public static Building mapToBuilding(BuildingDto buildingDto) {
-        return new Building(
+    public static BuildingEnt mapToBuilding(BuildingDto buildingDto) {
+        return new BuildingEnt(
                 buildingDto.getId(),
                 buildingDto.getName(),
                 buildingDto.getStreet(),

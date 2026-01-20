@@ -2,7 +2,7 @@ package com.emsib.emsib_backend_business.logic.controller;
 
 
 import com.emsib.emsib_backend_business.logic.dto.BuildingDto;
-import com.emsib.emsib_backend_business.logic.entity.Building;
+import com.emsib.emsib_backend_business.logic.entity.BuildingEnt;
 import com.emsib.emsib_backend_business.logic.mapper.BuildingMapper;
 import com.emsib.emsib_backend_business.logic.service.BuildingService;
 import lombok.AllArgsConstructor;
@@ -27,16 +27,16 @@ public class BuildingController {
 
     @GetMapping("/get/{id}")
     public ResponseEntity<BuildingDto> getBuildingById(@PathVariable Long id) {
-        Building building = buildingService.findById(id)
+        BuildingEnt building = buildingService.findById(id)
                 .orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND));
         return ResponseEntity.ok(BuildingMapper.mapToBuildingDto(building));
     }
 
     @GetMapping("/get/all")
     public List<BuildingDto> getUserAll() {
-        List<Building> buildings = buildingService.findAll();
+        List<BuildingEnt> buildings = buildingService.findAll();
         List<BuildingDto> buildingsDto = new ArrayList<>();
-        for (Building b : buildings) {
+        for (BuildingEnt b : buildings) {
             buildingsDto.add(BuildingMapper.mapToBuildingDto(b));
         }
         return buildingsDto;

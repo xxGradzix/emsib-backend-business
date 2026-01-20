@@ -4,8 +4,6 @@ import java.util.ArrayList;
 
 import com.emsib.emsib_backend_business.logic.dto.BuildingDto;
 import com.emsib.emsib_backend_business.logic.dto.UserDto;
-import com.emsib.emsib_backend_business.logic.entity.Building;
-import com.emsib.emsib_backend_business.logic.entity.User;
 
 public interface IBusinessLogic {
     public String getReport(String s);

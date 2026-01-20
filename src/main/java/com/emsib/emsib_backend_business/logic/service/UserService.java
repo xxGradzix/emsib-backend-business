@@ -1,13 +1,13 @@
 package com.emsib.emsib_backend_business.logic.service;
 
 import com.emsib.emsib_backend_business.logic.dto.UserDto;
-import com.emsib.emsib_backend_business.logic.entity.User;
+import com.emsib.emsib_backend_business.logic.entity.UserEnt;
 
 import java.util.List;
 import java.util.Optional;
 
 public interface UserService {
     UserDto createUser(UserDto userDto);
-    Optional<User> findById(Long id);
-    List<User> findAll();
+    Optional<UserEnt> findById(Long id);
+    List<UserEnt> findAll();
 }

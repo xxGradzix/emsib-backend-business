@@ -1,7 +1,7 @@
 package com.emsib.emsib_backend_business.logic.service.impl;
 
 import com.emsib.emsib_backend_business.logic.dto.BuildingDto;
-import com.emsib.emsib_backend_business.logic.entity.Building;
+import com.emsib.emsib_backend_business.logic.entity.BuildingEnt;
 import com.emsib.emsib_backend_business.logic.mapper.BuildingMapper;
 import com.emsib.emsib_backend_business.logic.repository.BuildingRepository;
 import com.emsib.emsib_backend_business.logic.service.BuildingService;
@@ -18,18 +18,18 @@ public class BuildingServiceImpl implements BuildingService {
 
     @Override
     public BuildingDto createBuilding(BuildingDto buildingDto) {
-        Building building = BuildingMapper.mapToBuilding(buildingDto);
-        Building savedBuilding = buildingRepository.save(building);
+        BuildingEnt building = BuildingMapper.mapToBuilding(buildingDto);
+        BuildingEnt savedBuilding = buildingRepository.save(building);
         return  BuildingMapper.mapToBuildingDto(savedBuilding);
     }
 
     @Override
-    public Optional<Building> findById(Long id) {
+    public Optional<BuildingEnt> findById(Long id) {
         return buildingRepository.findById(id);
     }
 
     @Override
-    public List<Building> findAll() {
+    public List<BuildingEnt> findAll() {
         return buildingRepository.findAll();
     }
 }

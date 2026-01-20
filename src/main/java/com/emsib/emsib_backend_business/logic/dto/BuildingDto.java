@@ -11,7 +11,7 @@ import lombok.Setter;
 @NoArgsConstructor
 @AllArgsConstructor
 public class BuildingDto {
-    private int id;
+    private Integer id;
     private String name;
     private String street;
     private String number;

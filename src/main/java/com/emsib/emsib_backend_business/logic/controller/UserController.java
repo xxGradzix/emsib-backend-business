@@ -1,6 +1,6 @@
 package com.emsib.emsib_backend_business.logic.controller;
 
-import com.emsib.emsib_backend_business.logic.entity.User;
+import com.emsib.emsib_backend_business.logic.entity.UserEnt;
 import com.emsib.emsib_backend_business.logic.mapper.UserMapper;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -27,16 +27,16 @@ public class UserController {
 
     @GetMapping("/get/{id}")
     public ResponseEntity<UserDto> getUserById(@PathVariable Long id) {
-       User user = userService.findById(id)
+       UserEnt user = userService.findById(id)
                .orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND));
        return ResponseEntity.ok(UserMapper.mapToUserDto(user));
     }
 
     @GetMapping("/get/all")
     public List<UserDto> getUserAll() {
-        List<User> users = userService.findAll();
+        List<UserEnt> users = userService.findAll();
         List<UserDto> usersDto = new ArrayList<>();
-        for (User u : users) {
+        for (UserEnt u : users) {
             usersDto.add(UserMapper.mapToUserDto(u));
         }
         return usersDto;

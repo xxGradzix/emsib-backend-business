@@ -10,7 +10,7 @@ import org.springframework.test.context.junit.jupiter.SpringExtension;
 import org.springframework.test.web.servlet.MockMvc;
 
 import com.emsib.emsib_backend_business.logic.controller.UserController;
-import com.emsib.emsib_backend_business.logic.entity.User;
+import com.emsib.emsib_backend_business.logic.entity.UserEnt;
 import com.emsib.emsib_backend_business.logic.service.UserService;
 import com.fasterxml.jackson.databind.ObjectMapper;
 
@@ -36,14 +36,12 @@ public class UserRestTest {
     @Test
     void testCreateUser() throws Exception {
         // Arrange
-        User user = new User();
+        UserEnt user = new UserEnt();
         user.setName("John");
         user.setSurname("Fast");
         user.setEmail("john@example.com");
         user.setPhone("123456787");
         user.setNip("nip");
-        user.setHash(null);
-        user.setSalt(null);
 
         // Act + Assert
         mockMvc.perform(post("/api/users")

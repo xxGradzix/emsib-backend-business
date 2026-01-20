@@ -3,7 +3,7 @@ package com.emsib.emsib_backend_business.logic.service.impl;
 import org.springframework.stereotype.Service;
 
 import com.emsib.emsib_backend_business.logic.dto.UserDto;
-import com.emsib.emsib_backend_business.logic.entity.User;
+import com.emsib.emsib_backend_business.logic.entity.UserEnt;
 import com.emsib.emsib_backend_business.logic.mapper.UserMapper;
 import com.emsib.emsib_backend_business.logic.repository.UserRepository;
 import com.emsib.emsib_backend_business.logic.service.UserService;
@@ -20,18 +20,18 @@ public class UserServiceImpl implements UserService {
 
     @Override
     public UserDto createUser(UserDto userDto) {
-        User user = UserMapper.mapToUser(userDto);
-        User savedUser =userRepository.save(user);
+        UserEnt user = UserMapper.mapToUser(userDto);
+        UserEnt savedUser =userRepository.save(user);
         return UserMapper.mapToUserDto(savedUser);
     }
 
     @Override
-    public Optional<User> findById(Long id) {
+    public Optional<UserEnt> findById(Long id) {
         return userRepository.findById(id);
     }
 
     @Override
-    public List<User> findAll() {
+    public List<UserEnt> findAll() {
         return userRepository.findAll();
     }
 }
