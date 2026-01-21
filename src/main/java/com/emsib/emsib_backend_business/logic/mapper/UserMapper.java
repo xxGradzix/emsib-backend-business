@@ -1,7 +1,7 @@
 package com.emsib.emsib_backend_business.logic.mapper;
 
 import com.emsib.emsib_backend_business.logic.dto.UserDto;
-import com.emsib.relational_database.UserEnt;
+import com.emsib.emsib_backend_business.relational_database.UserEnt;
 
 public class UserMapper {
 

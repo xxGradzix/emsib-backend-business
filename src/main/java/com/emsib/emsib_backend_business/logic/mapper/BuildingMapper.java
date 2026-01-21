@@ -1,7 +1,7 @@
 package com.emsib.emsib_backend_business.logic.mapper;
 
 import com.emsib.emsib_backend_business.logic.dto.BuildingDto;
-import com.emsib.relational_database.BuildingEnt;
+import com.emsib.emsib_backend_business.relational_database.BuildingEnt;
 
 public class BuildingMapper {
 

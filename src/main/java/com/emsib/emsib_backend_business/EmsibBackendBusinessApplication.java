@@ -1,6 +1,6 @@
 package com.emsib.emsib_backend_business;
 
-import com.emsib.relational_database.BuildingEnt;
+import com.emsib.emsib_backend_business.relational_database.BuildingEnt;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 import org.hibernate.Transaction;
@@ -14,9 +14,9 @@ import java.util.List;
 
 @SpringBootApplication
 
-@EnableJpaRepositories(basePackages = "com.emsib.emsib_backend_business.relational_database")
-@EntityScan(basePackages = {"com.emsib.relational_database"}) // Add this
-@EnableJpaRepositories(basePackages = {"com.emsib.emsib_backend_business.logic.repository"})
+@EnableJpaRepositories(basePackages = {"com.emsib.emsib_backend_business.relational_database","com.emsib.emsib_backend_business.logic.repository" })
+
+
 @EntityScan(basePackages = "com.emsib.emsib_backend_business.relational_database")
 public class EmsibBackendBusinessApplication {
 

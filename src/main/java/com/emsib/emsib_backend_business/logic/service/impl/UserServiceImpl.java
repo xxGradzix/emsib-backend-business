@@ -3,7 +3,7 @@ package com.emsib.emsib_backend_business.logic.service.impl;
 import org.springframework.stereotype.Service;
 
 import com.emsib.emsib_backend_business.logic.dto.UserDto;
-import com.emsib.relational_database.UserEnt;
+import com.emsib.emsib_backend_business.relational_database.UserEnt;
 import com.emsib.emsib_backend_business.logic.mapper.UserMapper;
 import com.emsib.emsib_backend_business.logic.repository.UserRepository;
 import com.emsib.emsib_backend_business.logic.service.UserService;
