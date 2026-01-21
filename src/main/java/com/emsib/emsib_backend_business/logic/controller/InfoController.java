@@ -3,6 +3,7 @@ package com.emsib.emsib_backend_business.logic.controller;
 import com.emsib.emsib_backend_business.logic.response.AlertResponse;
 import com.emsib.emsib_backend_business.logic.response.ReportResponse;
 import lombok.AllArgsConstructor;
+import lombok.NoArgsConstructor;
 
 import java.util.List;
 
@@ -15,10 +16,12 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.client.RestClient;
 
+@NoArgsConstructor
+@AllArgsConstructor
 @RestController
 @RequestMapping("/api/info")
 public class InfoController {
-    private final RestClient restClient;
+    private RestClient restClient;
 
     // Spring injects the value from properties here
     public InfoController(@Value("${external.service.url}") String baseUrl) {
