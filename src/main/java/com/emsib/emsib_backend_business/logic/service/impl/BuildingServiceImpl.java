@@ -1,7 +1,7 @@
 package com.emsib.emsib_backend_business.logic.service.impl;
 
 import com.emsib.emsib_backend_business.logic.dto.BuildingDto;
-import com.emsib.emsib_backend_business.logic.entity.BuildingEnt;
+import com.emsib.relational_database.BuildingEnt;
 import com.emsib.emsib_backend_business.logic.mapper.BuildingMapper;
 import com.emsib.emsib_backend_business.logic.repository.BuildingRepository;
 import com.emsib.emsib_backend_business.logic.service.BuildingService;

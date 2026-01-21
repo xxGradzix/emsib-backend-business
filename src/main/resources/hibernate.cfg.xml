@@ -7,9 +7,9 @@
         <!-- SSL ok, For now no snooping and man-in-the-middle attacks prevention -->
         <!-- JDBC -->
         <property name="hibernate.connection.driver_class">org.postgresql.Driver</property>
-        <property name="hibernate.connection.url">jdbc:postgresql://aws-1-eu-central-1.pooler.supabase.com:5432/postgres?ssl=true&amp;sslmode=require</property>
-        <property name="hibernate.connection.username">postgres.kmtexvonyhfwwkurygbt</property>
-        <property name="hibernate.connection.password"></property>
+        <property name="hibernate.connection.url">jdbc:postgresql://localhost:5432/TestEms</property>
+        <property name="hibernate.connection.username">postgres</property>
+        <property name="hibernate.connection.password">admin</property>
 
         <!-- automatic entity detection -->
         <mapping class="com.emsib.relational_database.UserEnt"/>

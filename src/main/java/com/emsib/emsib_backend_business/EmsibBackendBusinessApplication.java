@@ -7,10 +7,14 @@ import org.hibernate.Transaction;
 import org.hibernate.cfg.Configuration;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
+import org.springframework.boot.autoconfigure.domain.EntityScan;
+import org.springframework.data.jpa.repository.config.EnableJpaRepositories;
 
 import java.util.List;
 
 @SpringBootApplication
+@EntityScan(basePackages = {"com.emsib.relational_database"}) // Add this
+@EnableJpaRepositories(basePackages = {"com.emsib.emsib_backend_business.logic.repository"})
 public class EmsibBackendBusinessApplication {
 
 	public static void main(String[] args) {
@@ -127,12 +131,17 @@ public class EmsibBackendBusinessApplication {
 //        }
 
         //joins 3
-        String hql = "SELECT ub, ubr, u, b FROM UserBuildingEnt ub JOIN ub.role ubr JOIN ub.user u JOIN ub.building b";
+        // try {
+        //         String hql = "SELECT ub, ubr, u, b FROM UserBuildingEnt ub JOIN ub.role ubr JOIN ub.user u JOIN ub.building b";
 
-        List<Object[]> lst = session.createQuery(hql, Object[].class).list();
-        for (Object[] el : lst) {
-            System.out.println(el[0] + " " + el[1] + " " + el[2] + " " + el[3]);
-        }
+        //         List<Object[]> lst = session.createQuery(hql, Object[].class).list();
+        //         for (Object[] el : lst) {
+        //                 System.out.println(el[0] + " " + el[1] + " " + el[2] + " " + el[3]);
+        // }
+        // } catch (Exception e) {
+        //         System.err.println(e);
+        // }
+        
 
         //joins 4
 //        String hql = "SELECT pd, p, d FROM PropertyDeviceEnt pd JOIN pd.property p JOIN pd.device d";

@@ -1,6 +1,6 @@
 package com.emsib.emsib_backend_business.logic.repository;
 
-import com.emsib.emsib_backend_business.logic.entity.BuildingEnt;
+import com.emsib.relational_database.BuildingEnt;
 import org.springframework.data.jpa.repository.JpaRepository;
 
 import java.util.List;

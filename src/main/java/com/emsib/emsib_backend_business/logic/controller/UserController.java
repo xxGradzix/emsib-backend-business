@@ -1,6 +1,6 @@
 package com.emsib.emsib_backend_business.logic.controller;
 
-import com.emsib.emsib_backend_business.logic.entity.UserEnt;
+import com.emsib.relational_database.UserEnt;
 import com.emsib.emsib_backend_business.logic.mapper.UserMapper;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
