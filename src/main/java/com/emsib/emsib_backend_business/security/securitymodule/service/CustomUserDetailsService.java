@@ -27,7 +27,7 @@ public class CustomUserDetailsService implements UserDetailsService {
         return User.builder()
                 .username(u.name)
                 .password("") // blank since we handle hash+salt manually
-                .authorities(new String[0]) // empty authorities, resolves ambiguity
+                .authorities(new String[0])
                 .accountExpired(false)
                 .accountLocked(false)
                 .credentialsExpired(false)

@@ -1,11 +1,12 @@
 package com.emsib.emsib_backend_business.security.securitymodule.auth;
 
+import com.emsib.emsib_backend_business.relational_database.UserEnt;
+import com.emsib.emsib_backend_business.relational_database.UserEntRepository;
 import com.emsib.emsib_backend_business.security.securitymodule.auth.dto.AuthResponse;
 import com.emsib.emsib_backend_business.security.securitymodule.auth.dto.LoginRequest;
 import com.emsib.emsib_backend_business.security.securitymodule.auth.dto.RegisterRequest;
-import com.emsib.emsib_backend_business.relational_database.UserEnt;
-import com.emsib.emsib_backend_business.relational_database.UserEntRepository;
 import com.emsib.emsib_backend_business.security.securitymodule.jwt.JwtProvider;
+import com.emsib.emsib_backend_business.security.securitymodule.logging.SimpleAuthLogger;
 import com.emsib.emsib_backend_business.security.securitymodule.util.PasswordHashUtil;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -15,11 +16,16 @@ public class AuthenticationServiceImpl implements AuthenticationService {
 
     private final UserEntRepository userEntRepository;
     private final JwtProvider jwtProvider;
+    private final SimpleAuthLogger authLogger;
 
-    public AuthenticationServiceImpl(UserEntRepository userEntRepository,
-                                     JwtProvider jwtProvider) {
+    public AuthenticationServiceImpl(
+            UserEntRepository userEntRepository,
+            JwtProvider jwtProvider,
+            SimpleAuthLogger authLogger
+    ) {
         this.userEntRepository = userEntRepository;
         this.jwtProvider = jwtProvider;
+        this.authLogger = authLogger;
     }
 
     @Override
@@ -35,7 +41,10 @@ public class AuthenticationServiceImpl implements AuthenticationService {
 
         // Create salt + hash
         byte[] salt = PasswordHashUtil.generateSalt(16);
-        byte[] hash = PasswordHashUtil.hashPassword(request.getPassword().toCharArray(), salt);
+        byte[] hash = PasswordHashUtil.hashPassword(
+                request.getPassword().toCharArray(),
+                salt
+        );
 
         // Map DTO -> entity
         UserEnt user = new UserEnt();
@@ -49,22 +58,35 @@ public class AuthenticationServiceImpl implements AuthenticationService {
 
         userEntRepository.save(user);
 
-        String token = jwtProvider.generateToken(user.name); // use name as token subject
+        String token = jwtProvider.generateToken(user.name); // unchanged behavior
         return new AuthResponse(token);
     }
 
     @Override
     public AuthResponse authenticate(LoginRequest request) {
-        // Lookup user by name (username from DTO)
-        UserEnt user = userEntRepository.findByName(request.getUsername())
-                .orElseThrow(() -> new IllegalArgumentException("Invalid credentials"));
 
-        boolean ok = PasswordHashUtil.verifyPassword(request.getPassword(), user.salt, user.passwordHash);
+        authLogger.loginAttempt(request.getUsername());
+
+        UserEnt user = userEntRepository.findByName(request.getUsername())
+                .orElseThrow(() -> {
+                    authLogger.loginFailure(request.getUsername());
+                    return new IllegalArgumentException("Invalid credentials");
+                });
+
+        boolean ok = PasswordHashUtil.verifyPassword(
+                request.getPassword(),
+                user.salt,
+                user.passwordHash
+        );
+
         if (!ok) {
+            authLogger.loginFailure(request.getUsername());
             throw new IllegalArgumentException("Invalid credentials");
         }
 
-        String token = jwtProvider.generateToken(user.name); // consistent with register
+        authLogger.loginSuccess(request.getUsername());
+
+        String token = jwtProvider.generateToken(user.name); // unchanged behavior
         return new AuthResponse(token);
     }
 }
