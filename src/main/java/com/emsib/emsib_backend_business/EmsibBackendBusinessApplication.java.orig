@@ -1,6 +1,5 @@
 package com.emsib.emsib_backend_business;
 
-import com.emsib.relational_database.BuildingEnt;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 import org.hibernate.Transaction;
@@ -13,11 +12,14 @@ import org.springframework.data.jpa.repository.config.EnableJpaRepositories;
 import java.util.List;
 
 @SpringBootApplication
+<<<<<<< HEAD
 
 @EnableJpaRepositories(basePackages = "com.emsib.emsib_backend_business.relational_database")
+@EntityScan(basePackages = "com.emsib.emsib_backend_business.relational_database")
+=======
 @EntityScan(basePackages = {"com.emsib.relational_database"}) // Add this
 @EnableJpaRepositories(basePackages = {"com.emsib.emsib_backend_business.logic.repository"})
-@EntityScan(basePackages = "com.emsib.emsib_backend_business.relational_database")
+>>>>>>> origin/LogicDatabaseConnection
 public class EmsibBackendBusinessApplication {
 
 	public static void main(String[] args) {
@@ -134,7 +136,15 @@ public class EmsibBackendBusinessApplication {
 //        }
 
         //joins 3
+<<<<<<< HEAD
        // String hql = "SELECT ub, ubr, u, b FROM UserBuildingEnt ub JOIN ub.role ubr JOIN ub.user u JOIN ub.building b";
+
+       // List<Object[]> lst = session.createQuery(hql, Object[].class).list();
+       // for (Object[] el : lst) {
+       //     System.out.println(el[0] + " " + el[1] + " " + el[2] + " " + el[3]);
+       // }
+=======
+        // try {
         //         String hql = "SELECT ub, ubr, u, b FROM UserBuildingEnt ub JOIN ub.role ubr JOIN ub.user u JOIN ub.building b";
 
         //         List<Object[]> lst = session.createQuery(hql, Object[].class).list();
@@ -145,10 +155,7 @@ public class EmsibBackendBusinessApplication {
         //         System.err.println(e);
         // }
         
-       // List<Object[]> lst = session.createQuery(hql, Object[].class).list();
-       // for (Object[] el : lst) {
-       //     System.out.println(el[0] + " " + el[1] + " " + el[2] + " " + el[3]);
-       // }
+>>>>>>> origin/LogicDatabaseConnection
 
         //joins 4
 //        String hql = "SELECT pd, p, d FROM PropertyDeviceEnt pd JOIN pd.property p JOIN pd.device d";
