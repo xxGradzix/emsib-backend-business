@@ -22,11 +22,13 @@ public class AuthenticationServiceImpl implements AuthenticationService {
         this.jwtProvider = jwtProvider;
     }
 
-
     @Override
     @Transactional
     public AuthResponse register(RegisterRequest request) {
-        // Check unique email
+        // Check unique username & email
+        if (userEntRepository.existsByName(request.getUsername())) {
+            throw new IllegalArgumentException("Username already in use");
+        }
         if (userEntRepository.existsByEmail(request.getEmail())) {
             throw new IllegalArgumentException("Email already in use");
         }
@@ -35,25 +37,26 @@ public class AuthenticationServiceImpl implements AuthenticationService {
         byte[] salt = PasswordHashUtil.generateSalt(16);
         byte[] hash = PasswordHashUtil.hashPassword(request.getPassword().toCharArray(), salt);
 
+        // Map DTO -> entity
         UserEnt user = new UserEnt();
         user.name = request.getUsername();
         user.surname = null;
         user.email = request.getEmail();
-        user.phone = "";
+        user.phone = ""; // placeholder
         user.nip = null;
         user.passwordHash = hash;
         user.salt = salt;
 
         userEntRepository.save(user);
 
-        String token = jwtProvider.generateToken(user.email);
+        String token = jwtProvider.generateToken(user.name); // use name as token subject
         return new AuthResponse(token);
     }
 
-
     @Override
     public AuthResponse authenticate(LoginRequest request) {
-        UserEnt user = userEntRepository.findByEmail(request.getUsername())
+        // Lookup user by name (username from DTO)
+        UserEnt user = userEntRepository.findByName(request.getUsername())
                 .orElseThrow(() -> new IllegalArgumentException("Invalid credentials"));
 
         boolean ok = PasswordHashUtil.verifyPassword(request.getPassword(), user.salt, user.passwordHash);
@@ -61,7 +64,7 @@ public class AuthenticationServiceImpl implements AuthenticationService {
             throw new IllegalArgumentException("Invalid credentials");
         }
 
-        String token = jwtProvider.generateToken(user.email);
+        String token = jwtProvider.generateToken(user.name); // consistent with register
         return new AuthResponse(token);
     }
 }

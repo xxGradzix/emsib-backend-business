@@ -7,11 +7,14 @@ import org.hibernate.cfg.Configuration;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.boot.autoconfigure.domain.EntityScan;
+import org.springframework.data.jpa.repository.config.EnableJpaRepositories;
 
 import java.util.List;
 
 @SpringBootApplication
-@EntityScan("com.emsib.relational_database")
+
+@EnableJpaRepositories(basePackages = "com.emsib.emsib_backend_business.relational_database")
+@EntityScan(basePackages = "com.emsib.emsib_backend_business.relational_database")
 public class EmsibBackendBusinessApplication {
 
 	public static void main(String[] args) {
